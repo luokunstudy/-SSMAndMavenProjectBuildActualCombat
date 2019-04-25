@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                      http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+                      http://www.springframework.org/schema/context
+                      http://www.springframework.org/schema/context/spring-context-4.3.xsd
+                      http://www.springframework.org/schema/mvc
+                      http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+                      http://www.springframework.org/schema/util
+                      http://www.springframework.org/schema/util/spring-util-4.3.xsd
+                      http://www.springframework.org/schema/task
+                      http://www.springframework.org/schema/task/spring-task-4.3.xsd">
+
+    <!-- 拦截器 -->
+<!--    <mvc:interceptors>
+        &lt;!&ndash; 多个拦截器，顺序执行 &ndash;&gt;
+        <mvc:interceptor>
+            &lt;!&ndash; /**表示manage下所有url包括子url路径 &ndash;&gt;
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/js/**"/>
+            <mvc:exclude-mapping path="/css/**"/>
+            <mvc:exclude-mapping path="/html/**"/>
+            <mvc:exclude-mapping path="/layui/**"/>
+            <mvc:exclude-mapping path="/images/**"/>
+            <bean class="com.lk.common.interceptor.ApplicationHandlerInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>-->
+
+    <!--避免IE执行AJAX时，返回JSON出现下载文件 -->
+    <bean id="mappingJackson2HttpMessageConverter"
+          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>text/html;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 启动SpringMVC的注解功能，完成请求和注解POJO的映射 -->
+    <bean
+            class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="mappingJackson2HttpMessageConverter" />    <!-- JSON转换器 -->
+            </list>
+        </property>
+    </bean>
+
+    <!-- 配置spring session redis ，使session可以在redis共享，如项目不支持redis，或无需支持负载，可注释掉 -->
+    <bean id="redisHttpSessionConfiguration"
+          class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
+        <property name="maxInactiveIntervalInSeconds" value="1800"/>
+    </bean>
+    <util:constant static-field="org.springframework.session.data.redis.config.ConfigureRedisAction.NO_OP"/>
+    <!-- 配置spring session redis结束 -->
+
+    <!-- 将一个地址定向到另一个地址 -->
+    <mvc:view-controller path="" view-name="redirect:/"/>
+    <!-- 对静态资源的访问 -->
+   <!-- <mvc:resources mapping="/js/**" location="/js/" />
+    <mvc:resources mapping="/css/**" location="/css/" />
+    <mvc:resources mapping="/html/**" location="/html/"/>
+    <mvc:resources mapping="/layui/**" location="/layui/"/>
+    <mvc:resources mapping="/images/**" location="/images/"/>-->
+
+    <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
+    <context:component-scan base-package="com.lk.controller" />
+
+    <!-- 添加注解驱动 -->
+    <mvc:annotation-driven enable-matrix-variables="true" />
+    <!-- 允许对静态资源文件的访问 -->
+
+    <mvc:default-servlet-handler />
+
+    <!-- 定义跳转的文件的前后缀 ，视图模式配置 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- 这里的配置我的理解是自动给后面action的方法return的字符串加上前缀和后缀，变成一个 可用的url地址 -->
+        <property name="prefix" value="/WEB-INF/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+    <!-- 定义线程执行接口
+    <task:annotation-driven/>
+    <context:annotation-config/>
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+    <context:component-scan base-package="com.zsy.tools.thread"/>-->
+
+    <!-- 配置文件上传，如果没有使用文件上传可以不用配置，当然如果不配，那么配置文件中也不必引入上传组件包 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 默认编码 -->
+        <property name="defaultEncoding" value="UTF-8" />
+        <!-- 文件大小最大值 -->
+        <property name="maxUploadSize" value="10485760000" />
+        <!-- 内存中的最大值 -->
+        <property name="maxInMemorySize" value="40960" />
+    </bean>
+</beans>

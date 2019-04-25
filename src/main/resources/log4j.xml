@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//LOGGER" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <!-- Appenders -->
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{HH\:mm\:ss:SSS}>%t>%l>%5p>%m%n" />
+        </layout>
+        <!-- 输出日志级别 -->
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="DEBUG" />
+            <param name="levelMax" value="ERROR" />
+            <param name="AcceptOnMatch" value="true" />
+        </filter>
+    </appender>
+
+    <!-- 系统日志 -->
+    <!-- 输出info日志 -->
+    <appender name="systemInfoLog" class="com.lk.tools.log.DailySizeRollingAppender">
+        <!-- 文件输出路径 -->
+        <param name="File" value="C:/data/logs/demo/%d.info[.%N{000}].log" />
+        <param name="Append" value="true" />
+        <!-- 文件编码 -->
+        <param name="encoding" value="UTF-8" />
+        <!-- 后缀名 -->
+        <param name="DatePattern" value="yyyyMMdd" />
+        <!-- 定义文件最大量 -->
+        <param name="MaxFileSize" value="10MB" />
+        <!-- 定义文件分割最大数量 -->
+        <param name="MaxBackupIndex" value="5" />
+        <!-- 输出格式  -->
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[#%%&amp;*^]%d{HH\:mm\:ss:SSS}!应用程序:功能模块&amp;%l>%5p>%m%n" />
+        </layout>
+        <!-- 输出日志级别 -->
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="INFO" />
+            <param name="levelMax" value="ERROR" />
+            <param name="AcceptOnMatch" value="true" />
+        </filter>
+    </appender>
+
+    <logger name="com.wcs" additivity="false">
+        <appender-ref ref="console"/>
+        <appender-ref ref="systemInfoLog" />
+    </logger>
+
+    <root>
+
+    </root>
+</log4j:configuration>

@@ -1,0 +1,3732 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lk.dao.mybatis.dao.UserInfoDao">
+    <resultMap id="BaseResultMap" type="com.lk.entity.database.UserInfoBean">
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="authIp" property="authIp" jdbcType="VARCHAR" />
+        <result column="operationStatus" property="operationStatus" jdbcType="INTEGER" />
+        <result column="userStatus" property="userStatus" jdbcType="INTEGER" />
+        <result column="createUserName" property="createUserName" jdbcType="VARCHAR" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="openUserName" property="openUserName" jdbcType="VARCHAR" />
+        <result column="openUserTime" property="openUserTime" jdbcType="TIMESTAMP" />
+        <result column="telePhone" property="telePhone" jdbcType="VARCHAR" />
+        <result column="lastLoginIp" property="lastLoginIp" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="CHAR" />
+        <result column="loginTime" property="loginTime" jdbcType="TIMESTAMP" />
+        <result column="merchantId" property="merchantId" jdbcType="CHAR" />
+        <result column="loginName" property="loginName" jdbcType="VARCHAR" />
+        <result column="loginIp" property="loginIp" jdbcType="VARCHAR" />
+        <result column="userDescribe" property="userDescribe" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="loginTotal" property="loginTotal" jdbcType="BIGINT" />
+        <result column="nickName" property="nickName" jdbcType="VARCHAR" />
+        <result column="roleId" property="roleId" jdbcType="CHAR" />
+        <result column="updateTime" property="updateTime" jdbcType="DATE" />
+        <result column="userName" property="userName" jdbcType="VARCHAR" />
+        <result column="closeUserTime" property="closeUserTime" jdbcType="TIMESTAMP" />
+        <result column="userId" property="userId" jdbcType="CHAR" />
+        <result column="lastLoginTime" property="lastLoginTime" jdbcType="TIMESTAMP" />
+        <result column="mobilePhone" property="mobilePhone" jdbcType="VARCHAR" />
+        <result column="userPortrait" property="userPortrait" jdbcType="VARCHAR" />
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="closeUserName" property="closeUserName" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        authIp,operationStatus,userStatus,createUserName,remark,openUserName,openUserTime,telePhone,lastLoginIp,password,loginTime,merchantId,loginName,loginIp,id,userDescribe,email,loginTotal,nickName,roleId,updateTime,userName,closeUserTime,userId,lastLoginTime,mobilePhone,userPortrait,createTime,closeUserName
+    </sql>
+
+    <update id="updateUserInfoStatusByUserId" parameterType="com.lk.entity.database.UserInfoBean" >
+        <![CDATA[
+      UPDATE t_user_info
+    ]]>
+        <set>
+            <if test="userStatus != null ">
+                <![CDATA[
+          userStatus = #{userStatus,jdbcType=INTEGER},
+        ]]>
+            </if>
+            <if test="openUserName != null ">
+                <![CDATA[
+          openUserName = #{openUserName,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="openUserTime != null ">
+                <![CDATA[
+          openUserTime = #{openUserTime,jdbcType=TIMESTAMP},
+        ]]>
+            </if>
+            <if test="closeUserTime != null ">
+                <![CDATA[
+          closeUserTime = #{closeUserTime,jdbcType=TIMESTAMP},
+        ]]>
+            </if>
+            <if test="closeUserName != null ">
+                <![CDATA[
+          closeUserName = #{closeUserName,jdbcType=VARCHAR},
+        ]]>
+            </if>
+        </set>
+        <where>
+            <if test="userInfoBean.userId != null and userInfoBean.userId != ''">
+                <![CDATA[
+          AND userId = #{userInfoBean.userId,jdbcType=CHAR}
+        ]]>
+            </if>
+        </where>
+    </update>
+
+    <!-- 根据userid修改信息 -->
+    <update id="updateSingleByUserId" parameterType="com.lk.entity.database.UserInfoBean" >
+        <![CDATA[
+      UPDATE t_user_info
+    ]]>
+        <set>
+            <if test="authIp != null ">
+                <![CDATA[
+          authIp = #{authIp,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="telePhone != null ">
+                <![CDATA[
+          telePhone = #{telePhone,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="merchantId != null ">
+                <![CDATA[
+          merchantId = #{merchantId,jdbcType=CHAR},
+        ]]>
+            </if>
+            <if test="userDescribe != null ">
+                <![CDATA[
+          userDescribe = #{userDescribe,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="email != null ">
+                <![CDATA[
+          email = #{email,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="nickName != null ">
+                <![CDATA[
+          nickName = #{nickName,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="roleId != null ">
+                <![CDATA[
+          roleId = #{roleId,jdbcType=CHAR},
+        ]]>
+            </if>
+            <if test="userName != null ">
+                <![CDATA[
+          userName = #{userName,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="mobilePhone != null ">
+                <![CDATA[
+          mobilePhone = #{mobilePhone,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="password != null and password != ''">
+                <![CDATA[
+          password = #{password,jdbcType=CHAR},
+        ]]>
+            </if>
+        </set>
+        <where>
+            <![CDATA[
+        AND userId = #{userInfoBean.userId,jdbcType=CHAR}
+      ]]>
+        </where>
+    </update>
+    <!--修改用户状态 -->
+    <update id="editUserStatus"  parameterType="com.lk.entity.database.UserInfoBean">
+        <![CDATA[
+      UPDATE t_user_info
+    ]]>
+        <set>
+            <if test="userStatus != null ">
+                <![CDATA[
+          userStatus = #{userStatus,jdbcType=VARCHAR},
+        ]]>
+            </if>
+        </set>
+        <where>
+            <![CDATA[
+        AND userId = #{userId,jdbcType=CHAR}
+      ]]>
+        </where>
+    </update>
+
+    <select id="selectUserSelectByParam"  parameterType="com.lk.entity.database.UserInfoBean"  resultMap="BaseResultMap">
+        <![CDATA[
+     SELECT
+    ]]>
+        <choose>
+            <when test="field!=null and field!=''">
+                <![CDATA[
+          ${field}
+        ]]>
+            </when>
+            <otherwise>
+                <include refid="Base_Column_List" />
+            </otherwise>
+        </choose>
+        <![CDATA[
+      FROM t_user_info
+    ]]>
+        <where>
+            <if test="userId != null and userId != ''">
+                <![CDATA[
+          AND userId = #{userId,jdbcType=CHAR}
+        ]]>
+            </if>
+            <if test="merchantId != null and merchantId != ''">
+                <![CDATA[
+          AND merchantId = #{merchantId,jdbcType=CHAR}
+        ]]>
+            </if>
+            <if test="operationStatus != null and operationStatus != ''">
+                <![CDATA[
+          AND operationStatus = #{operationStatus,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="operationStatusBegin != null and operationStatusBegin != ''">
+                <![CDATA[
+          AND operationStatus >= #{operationStatusBegin,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="operationStatusEnd != null and operationStatusEnd != ''">
+                <![CDATA[
+          AND operationStatus <= #{operationStatusEnd,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="userStatus != null and userStatus != ''">
+                <![CDATA[
+          AND userStatus = #{userStatus,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="userStatusBegin != null and userStatusBegin != ''">
+                <![CDATA[
+          AND userStatus >= #{userStatusBegin,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="userStatusEnd != null and userStatusEnd != ''">
+                <![CDATA[
+          AND userStatus <= #{userStatusEnd,jdbcType=INTEGER}
+        ]]>
+            </if>
+        </where>
+    </select>
+    <!-- 根据id查询详情 -->
+    <select id="selectSingleByUserDetails"  parameterType="com.lk.entity.database.UserInfoBean"  resultMap="BaseResultMap">
+        <![CDATA[
+     SELECT
+    ]]>
+        <choose>
+            <when test="field!=null and field!=''">
+                <![CDATA[
+          ${field}
+        ]]>
+            </when>
+            <otherwise>
+                <include refid="Base_Column_List" />
+            </otherwise>
+        </choose>
+        <![CDATA[
+      FROM t_user_info
+    ]]>
+        <where>
+            <![CDATA[
+        AND userId = #{userId,jdbcType=CHAR}
+      ]]>
+        </where>
+    </select>
+    <!--  删除用户 -->
+    <delete id="deleteAllUserByUserId"  parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            <![CDATA[
+      delete from t_user_info
+      ]]>
+            <where>
+                <![CDATA[
+         AND  userId = #{item.userId,jdbcType=CHAR}
+        ]]>
+            </where>
+        </foreach>
+    </delete>
+
+    <!-- 根据登录名查询是否存在 -->
+    <select id="addUserCheckName"  parameterType="com.lk.entity.database.UserInfoBean"  resultMap="BaseResultMap">
+        <![CDATA[
+       SELECT *
+    ]]>
+        <![CDATA[
+      FROM t_user_info
+    ]]>
+        <where>
+            <![CDATA[
+        AND loginName = #{loginName,jdbcType=VARCHAR}
+      ]]>
+        </where>
+        <![CDATA[
+      LIMIT 0,1
+    ]]>
+    </select>
+
+    <!-- 根据角色id查询是否有用户 -->
+    <select id="getUserByRoleId" parameterType="com.lk.entity.database.UserInfoBean" resultMap="BaseResultMap">
+        <![CDATA[
+     SELECT userId
+    ]]>
+        <![CDATA[
+      FROM t_user_info
+    ]]>
+        <where>
+            <![CDATA[
+        AND roleId = #{roleId,jdbcType=VARCHAR}
+      ]]>
+        </where>
+        <![CDATA[
+      LIMIT 0,1
+    ]]>
+    </select>
+
+    <select id="selectSingleByUserInfoForUserId" parameterType="com.lk.entity.database.UserInfoBean" resultMap="BaseResultMap">
+        <![CDATA[
+     SELECT
+    ]]>
+        <choose>
+            <when test="field!=null and field!=''">
+                <![CDATA[
+          ${field}
+        ]]>
+            </when>
+            <otherwise>
+                <include refid="Base_Column_List" />
+            </otherwise>
+        </choose>
+        <![CDATA[
+      FROM t_user_info
+    ]]>
+        <where>
+            <![CDATA[
+        AND userId = #{userId,jdbcType=VARCHAR}
+      ]]>
+        </where>
+        <![CDATA[
+      LIMIT 0,1
+    ]]>
+    </select>
+    <select id="selectSingleByLoginForLoginName" parameterType="com.lk.entity.database.UserInfoBean" resultMap="BaseResultMap">
+        <![CDATA[
+     SELECT
+    ]]>
+        <choose>
+            <when test="field!=null and field!=''">
+                <![CDATA[
+          ${field}
+        ]]>
+            </when>
+            <otherwise>
+                <include refid="Base_Column_List" />
+            </otherwise>
+        </choose>
+        <![CDATA[
+      FROM t_user_info
+    ]]>
+        <where>
+            <![CDATA[
+        AND loginName = #{loginName,jdbcType=VARCHAR}
+      ]]>
+        </where>
+        <![CDATA[
+      LIMIT 0,1
+    ]]>
+    </select>
+    <update id="updateSingleByLoginForUserId" parameterType="com.lk.entity.database.UserInfoBean" >
+        <![CDATA[
+      UPDATE t_user_info
+    ]]>
+        <set>
+            <if test="lastLoginIp != null ">
+                <![CDATA[
+          lastLoginIp = #{lastLoginIp,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="loginTime != null ">
+                <![CDATA[
+          loginTime = #{loginTime,jdbcType=TIMESTAMP},
+        ]]>
+            </if>
+            <if test="loginIp != null ">
+                <![CDATA[
+          loginIp = #{loginIp,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="loginTotal != null ">
+                <![CDATA[
+          loginTotal = #{loginTotal,jdbcType=BIGINT},
+        ]]>
+            </if>
+            <if test="lastLoginTime != null ">
+                <![CDATA[
+          lastLoginTime = #{lastLoginTime,jdbcType=TIMESTAMP},
+        ]]>
+            </if>
+        </set>
+        <where>
+            <![CDATA[
+        AND userId = #{userInfoBean.userId,jdbcType=CHAR}
+      ]]>
+        </where>
+    </update>
+
+    <select id="selectBySingle" parameterType="com.lk.entity.database.UserInfoBean" resultMap="BaseResultMap">
+        <![CDATA[
+     SELECT
+    ]]>
+        <choose>
+            <when test="field!=null and field!=''">
+                <![CDATA[
+          ${field}
+        ]]>
+            </when>
+            <otherwise>
+                <include refid="Base_Column_List" />
+            </otherwise>
+        </choose>
+        <![CDATA[
+      FROM t_user_info
+    ]]>
+        <where>
+            <if test="authIp != null and authIp != ''">
+                <bind name="authIp" value="'%' + _parameter.authIp + '%'" />
+                <![CDATA[
+          AND authIp LIKE #{authIp,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="operationStatus != null and operationStatus != ''">
+                <![CDATA[
+          AND operationStatus = #{operationStatus,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="operationStatusBegin != null and operationStatusBegin != ''">
+                <![CDATA[
+          AND operationStatus >= #{operationStatusBegin,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="operationStatusEnd != null and operationStatusEnd != ''">
+                <![CDATA[
+          AND operationStatus <= #{operationStatusEnd,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="userStatus != null and userStatus != ''">
+                <![CDATA[
+          AND userStatus = #{userStatus,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="userStatusBegin != null and userStatusBegin != ''">
+                <![CDATA[
+          AND userStatus >= #{userStatusBegin,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="userStatusEnd != null and userStatusEnd != ''">
+                <![CDATA[
+          AND userStatus <= #{userStatusEnd,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="createUserName != null and createUserName != ''">
+                <bind name="createUserName" value="'%' + _parameter.createUserName + '%'" />
+                <![CDATA[
+          AND createUserName LIKE #{createUserName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="remark != null and remark != ''">
+                <bind name="remark" value="'%' + _parameter.remark + '%'" />
+                <![CDATA[
+          AND remark LIKE #{remark,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="openUserName != null and openUserName != ''">
+                <bind name="openUserName" value="'%' + _parameter.openUserName + '%'" />
+                <![CDATA[
+          AND openUserName LIKE #{openUserName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="openUserTime != null ">
+                <![CDATA[
+          AND openUserTime = #{openUserTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="openUserTimeBegin != null ">
+                <![CDATA[
+          AND openUserTime >= #{openUserTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="openUserTimeEnd != null ">
+                <![CDATA[
+          AND openUserTime <= #{openUserTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="telePhone != null and telePhone != ''">
+                <bind name="telePhone" value="'%' + _parameter.telePhone + '%'" />
+                <![CDATA[
+          AND telePhone LIKE #{telePhone,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="lastLoginIp != null and lastLoginIp != ''">
+                <bind name="lastLoginIp" value="'%' + _parameter.lastLoginIp + '%'" />
+                <![CDATA[
+          AND lastLoginIp LIKE #{lastLoginIp,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="password != null and password != ''">
+                <![CDATA[
+          AND password = #{password,jdbcType=CHAR}
+        ]]>
+            </if>
+            <if test="loginTime != null ">
+                <![CDATA[
+          AND loginTime = #{loginTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="loginTimeBegin != null ">
+                <![CDATA[
+          AND loginTime >= #{loginTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="loginTimeEnd != null ">
+                <![CDATA[
+          AND loginTime <= #{loginTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="merchantId != null and merchantId != ''">
+                <![CDATA[
+          AND merchantId = #{merchantId,jdbcType=CHAR}
+        ]]>
+            </if>
+            <if test="loginName != null and loginName != ''">
+                <bind name="loginName" value="'%' + _parameter.loginName + '%'" />
+                <![CDATA[
+          AND loginName LIKE #{loginName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="loginIp != null and loginIp != ''">
+                <bind name="loginIp" value="'%' + _parameter.loginIp + '%'" />
+                <![CDATA[
+          AND loginIp LIKE #{loginIp,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="id != null and id != ''">
+                <![CDATA[
+          AND id = #{id,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="idBegin != null and idBegin != ''">
+                <![CDATA[
+          AND id >= #{idBegin,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="idEnd != null and idEnd != ''">
+                <![CDATA[
+          AND id <= #{idEnd,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="userDescribe != null and userDescribe != ''">
+                <bind name="userDescribe" value="'%' + _parameter.userDescribe + '%'" />
+                <![CDATA[
+          AND userDescribe LIKE #{userDescribe,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="email != null and email != ''">
+                <bind name="email" value="'%' + _parameter.email + '%'" />
+                <![CDATA[
+          AND email LIKE #{email,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="loginTotal != null and loginTotal != ''">
+                <![CDATA[
+          AND loginTotal = #{loginTotal,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="loginTotalBegin != null and loginTotalBegin != ''">
+                <![CDATA[
+          AND loginTotal >= #{loginTotalBegin,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="loginTotalEnd != null and loginTotalEnd != ''">
+                <![CDATA[
+          AND loginTotal <= #{loginTotalEnd,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="nickName != null and nickName != ''">
+                <bind name="nickName" value="'%' + _parameter.nickName + '%'" />
+                <![CDATA[
+          AND nickName LIKE #{nickName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="roleId != null and roleId != ''">
+                <![CDATA[
+          AND roleId = #{roleId,jdbcType=CHAR}
+        ]]>
+            </if>
+            <if test="updateTime != null ">
+                <![CDATA[
+          AND updateTime = #{updateTime,jdbcType=DATE}
+        ]]>
+            </if>
+            <if test="updateTimeBegin != null ">
+                <![CDATA[
+          AND updateTime >= #{updateTimeBegin,jdbcType=DATE}
+        ]]>
+            </if>
+            <if test="updateTimeEnd != null ">
+                <![CDATA[
+          AND updateTime <= #{updateTimeEnd,jdbcType=DATE}
+        ]]>
+            </if>
+            <if test="userName != null and userName != ''">
+                <bind name="userName" value="'%' + _parameter.userName + '%'" />
+                <![CDATA[
+          AND userName LIKE #{userName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="closeUserTime != null ">
+                <![CDATA[
+          AND closeUserTime = #{closeUserTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="closeUserTimeBegin != null ">
+                <![CDATA[
+          AND closeUserTime >= #{closeUserTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="closeUserTimeEnd != null ">
+                <![CDATA[
+          AND closeUserTime <= #{closeUserTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="userId != null and userId != ''">
+                <![CDATA[
+          AND userId = #{userId,jdbcType=CHAR}
+        ]]>
+            </if>
+            <if test="lastLoginTime != null ">
+                <![CDATA[
+          AND lastLoginTime = #{lastLoginTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="lastLoginTimeBegin != null ">
+                <![CDATA[
+          AND lastLoginTime >= #{lastLoginTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="lastLoginTimeEnd != null ">
+                <![CDATA[
+          AND lastLoginTime <= #{lastLoginTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="mobilePhone != null and mobilePhone != ''">
+                <bind name="mobilePhone" value="'%' + _parameter.mobilePhone + '%'" />
+                <![CDATA[
+          AND mobilePhone LIKE #{mobilePhone,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="userPortrait != null and userPortrait != ''">
+                <bind name="userPortrait" value="'%' + _parameter.userPortrait + '%'" />
+                <![CDATA[
+          AND userPortrait LIKE #{userPortrait,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="createTime != null ">
+                <![CDATA[
+          AND createTime = #{createTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="createTimeBegin != null ">
+                <![CDATA[
+          AND createTime >= #{createTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="createTimeEnd != null ">
+                <![CDATA[
+          AND createTime <= #{createTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="closeUserName != null and closeUserName != ''">
+                <bind name="closeUserName" value="'%' + _parameter.closeUserName + '%'" />
+                <![CDATA[
+          AND closeUserName LIKE #{closeUserName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+        </where>
+        <if test="orderByParam != null and orderByParam != ''">
+            <![CDATA[
+      ORDER BY ${orderByParam}
+      ]]>
+            <if test="orderByAccording != null and orderByAccording != ''">
+                <![CDATA[
+        ${orderByAccording}
+        ]]>
+            </if>
+        </if>
+        <![CDATA[
+      LIMIT 0,1
+    ]]>
+    </select>
+    <select id="selectAll" parameterType="com.lk.entity.database.UserInfoBean" resultMap="BaseResultMap">
+        <![CDATA[
+     SELECT
+    ]]>
+        <choose>
+            <when test="field!=null and field!=''">
+                <![CDATA[
+          ${field}
+        ]]>
+            </when>
+            <otherwise>
+                <include refid="Base_Column_List" />
+            </otherwise>
+        </choose>
+        <![CDATA[
+      FROM t_user_info
+    ]]>
+        <where>
+            <if test="authIp != null and authIp != ''">
+                <bind name="authIp" value="'%' + _parameter.authIp + '%'" />
+                <![CDATA[
+          AND authIp LIKE #{authIp,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="operationStatus != null and operationStatus != ''">
+                <![CDATA[
+          AND operationStatus = #{operationStatus,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="operationStatusBegin != null and operationStatusBegin != ''">
+                <![CDATA[
+          AND operationStatus >= #{operationStatusBegin,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="operationStatusEnd != null and operationStatusEnd != ''">
+                <![CDATA[
+          AND operationStatus <= #{operationStatusEnd,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="userStatus != null and userStatus != ''">
+                <![CDATA[
+          AND userStatus = #{userStatus,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="userStatusBegin != null and userStatusBegin != ''">
+                <![CDATA[
+          AND userStatus >= #{userStatusBegin,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="userStatusEnd != null and userStatusEnd != ''">
+                <![CDATA[
+          AND userStatus <= #{userStatusEnd,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="createUserName != null and createUserName != ''">
+                <bind name="createUserName" value="'%' + _parameter.createUserName + '%'" />
+                <![CDATA[
+          AND createUserName LIKE #{createUserName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="remark != null and remark != ''">
+                <bind name="remark" value="'%' + _parameter.remark + '%'" />
+                <![CDATA[
+          AND remark LIKE #{remark,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="openUserName != null and openUserName != ''">
+                <bind name="openUserName" value="'%' + _parameter.openUserName + '%'" />
+                <![CDATA[
+          AND openUserName LIKE #{openUserName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="openUserTime != null ">
+                <![CDATA[
+          AND openUserTime = #{openUserTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="openUserTimeBegin != null ">
+                <![CDATA[
+          AND openUserTime >= #{openUserTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="openUserTimeEnd != null ">
+                <![CDATA[
+          AND openUserTime <= #{openUserTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="telePhone != null and telePhone != ''">
+                <bind name="telePhone" value="'%' + _parameter.telePhone + '%'" />
+                <![CDATA[
+          AND telePhone LIKE #{telePhone,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="lastLoginIp != null and lastLoginIp != ''">
+                <bind name="lastLoginIp" value="'%' + _parameter.lastLoginIp + '%'" />
+                <![CDATA[
+          AND lastLoginIp LIKE #{lastLoginIp,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="password != null and password != ''">
+                <![CDATA[
+          AND password = #{password,jdbcType=CHAR}
+        ]]>
+            </if>
+            <if test="loginTime != null ">
+                <![CDATA[
+          AND loginTime = #{loginTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="loginTimeBegin != null ">
+                <![CDATA[
+          AND loginTime >= #{loginTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="loginTimeEnd != null ">
+                <![CDATA[
+          AND loginTime <= #{loginTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="merchantId != null and merchantId != ''">
+                <![CDATA[
+          AND merchantId = #{merchantId,jdbcType=CHAR}
+        ]]>
+            </if>
+            <if test="loginName != null and loginName != ''">
+                <bind name="loginName" value="'%' + _parameter.loginName + '%'" />
+                <![CDATA[
+          AND loginName LIKE #{loginName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="loginIp != null and loginIp != ''">
+                <bind name="loginIp" value="'%' + _parameter.loginIp + '%'" />
+                <![CDATA[
+          AND loginIp LIKE #{loginIp,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="id != null and id != ''">
+                <![CDATA[
+          AND id = #{id,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="idBegin != null and idBegin != ''">
+                <![CDATA[
+          AND id >= #{idBegin,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="idEnd != null and idEnd != ''">
+                <![CDATA[
+          AND id <= #{idEnd,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="userDescribe != null and userDescribe != ''">
+                <bind name="userDescribe" value="'%' + _parameter.userDescribe + '%'" />
+                <![CDATA[
+          AND userDescribe LIKE #{userDescribe,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="email != null and email != ''">
+                <bind name="email" value="'%' + _parameter.email + '%'" />
+                <![CDATA[
+          AND email LIKE #{email,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="loginTotal != null and loginTotal != ''">
+                <![CDATA[
+          AND loginTotal = #{loginTotal,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="loginTotalBegin != null and loginTotalBegin != ''">
+                <![CDATA[
+          AND loginTotal >= #{loginTotalBegin,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="loginTotalEnd != null and loginTotalEnd != ''">
+                <![CDATA[
+          AND loginTotal <= #{loginTotalEnd,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="nickName != null and nickName != ''">
+                <bind name="nickName" value="'%' + _parameter.nickName + '%'" />
+                <![CDATA[
+          AND nickName LIKE #{nickName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="roleId != null and roleId != ''">
+                <![CDATA[
+          AND roleId = #{roleId,jdbcType=CHAR}
+        ]]>
+            </if>
+            <if test="updateTime != null ">
+                <![CDATA[
+          AND updateTime = #{updateTime,jdbcType=DATE}
+        ]]>
+            </if>
+            <if test="updateTimeBegin != null ">
+                <![CDATA[
+          AND updateTime >= #{updateTimeBegin,jdbcType=DATE}
+        ]]>
+            </if>
+            <if test="updateTimeEnd != null ">
+                <![CDATA[
+          AND updateTime <= #{updateTimeEnd,jdbcType=DATE}
+        ]]>
+            </if>
+            <if test="userName != null and userName != ''">
+                <bind name="userName" value="'%' + _parameter.userName + '%'" />
+                <![CDATA[
+          AND userName LIKE #{userName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="closeUserTime != null ">
+                <![CDATA[
+          AND closeUserTime = #{closeUserTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="closeUserTimeBegin != null ">
+                <![CDATA[
+          AND closeUserTime >= #{closeUserTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="closeUserTimeEnd != null ">
+                <![CDATA[
+          AND closeUserTime <= #{closeUserTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <!--  <if test="userId != null and userId != ''">
+               <![CDATA[
+                 AND userId = #{userId,jdbcType=CHAR}
+               ]]>
+             </if> -->
+            <if test="lastLoginTime != null ">
+                <![CDATA[
+          AND lastLoginTime = #{lastLoginTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="lastLoginTimeBegin != null ">
+                <![CDATA[
+          AND lastLoginTime >= #{lastLoginTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="lastLoginTimeEnd != null ">
+                <![CDATA[
+          AND lastLoginTime <= #{lastLoginTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="mobilePhone != null and mobilePhone != ''">
+                <bind name="mobilePhone" value="'%' + _parameter.mobilePhone + '%'" />
+                <![CDATA[
+          AND mobilePhone LIKE #{mobilePhone,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="userPortrait != null and userPortrait != ''">
+                <bind name="userPortrait" value="'%' + _parameter.userPortrait + '%'" />
+                <![CDATA[
+          AND userPortrait LIKE #{userPortrait,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="createTime != null ">
+                <![CDATA[
+          AND createTime = #{createTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="createTimeBegin != null ">
+                <![CDATA[
+          AND createTime >= #{createTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="createTimeEnd != null ">
+                <![CDATA[
+          AND createTime <= #{createTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="closeUserName != null and closeUserName != ''">
+                <bind name="closeUserName" value="'%' + _parameter.closeUserName + '%'" />
+                <![CDATA[
+          AND closeUserName LIKE #{closeUserName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+        </where>
+        <if test="orderByParam != null and orderByParam != ''">
+            <![CDATA[
+      ORDER BY ${orderByParam}
+      ]]>
+            <if test="orderByAccording != null and orderByAccording != ''">
+                <![CDATA[
+          ${orderByAccording}
+        ]]>
+            </if>
+        </if>
+        <if test="pageSize>0">
+            <bind name="pageNo" value="(_parameter.pageNo-1)*_parameter.pageSize" />
+            <![CDATA[
+        LIMIT #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+      ]]>
+        </if>
+    </select>
+    <select id="selectAllCount" parameterType="com.lk.entity.database.UserInfoBean" resultType="int">
+        <![CDATA[
+     SELECT COUNT(*)
+    ]]>
+        <![CDATA[
+      FROM t_user_info
+    ]]>
+        <where>
+            <if test="authIp != null and authIp != ''">
+                <bind name="authIp" value="'%' + _parameter.authIp + '%'" />
+                <![CDATA[
+          AND authIp LIKE #{authIp,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="operationStatus != null and operationStatus != ''">
+                <![CDATA[
+          AND operationStatus = #{operationStatus,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="operationStatusBegin != null and operationStatusBegin != ''">
+                <![CDATA[
+          AND operationStatus >= #{operationStatusBegin,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="operationStatusEnd != null and operationStatusEnd != ''">
+                <![CDATA[
+          AND operationStatus <= #{operationStatusEnd,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="userStatus != null and userStatus != ''">
+                <![CDATA[
+          AND userStatus = #{userStatus,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="userStatusBegin != null and userStatusBegin != ''">
+                <![CDATA[
+          AND userStatus >= #{userStatusBegin,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="userStatusEnd != null and userStatusEnd != ''">
+                <![CDATA[
+          AND userStatus <= #{userStatusEnd,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="createUserName != null and createUserName != ''">
+                <bind name="createUserName" value="'%' + _parameter.createUserName + '%'" />
+                <![CDATA[
+          AND createUserName LIKE #{createUserName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="remark != null and remark != ''">
+                <bind name="remark" value="'%' + _parameter.remark + '%'" />
+                <![CDATA[
+          AND remark LIKE #{remark,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="openUserName != null and openUserName != ''">
+                <bind name="openUserName" value="'%' + _parameter.openUserName + '%'" />
+                <![CDATA[
+          AND openUserName LIKE #{openUserName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="openUserTime != null ">
+                <![CDATA[
+          AND openUserTime = #{openUserTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="openUserTimeBegin != null ">
+                <![CDATA[
+          AND openUserTime >= #{openUserTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="openUserTimeEnd != null ">
+                <![CDATA[
+          AND openUserTime <= #{openUserTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="telePhone != null and telePhone != ''">
+                <bind name="telePhone" value="'%' + _parameter.telePhone + '%'" />
+                <![CDATA[
+          AND telePhone LIKE #{telePhone,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="lastLoginIp != null and lastLoginIp != ''">
+                <bind name="lastLoginIp" value="'%' + _parameter.lastLoginIp + '%'" />
+                <![CDATA[
+          AND lastLoginIp LIKE #{lastLoginIp,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="password != null and password != ''">
+                <![CDATA[
+          AND password = #{password,jdbcType=CHAR}
+        ]]>
+            </if>
+            <if test="loginTime != null ">
+                <![CDATA[
+          AND loginTime = #{loginTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="loginTimeBegin != null ">
+                <![CDATA[
+          AND loginTime >= #{loginTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="loginTimeEnd != null ">
+                <![CDATA[
+          AND loginTime <= #{loginTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="merchantId != null and merchantId != ''">
+                <![CDATA[
+          AND merchantId = #{merchantId,jdbcType=CHAR}
+        ]]>
+            </if>
+            <if test="loginName != null and loginName != ''">
+                <bind name="loginName" value="'%' + _parameter.loginName + '%'" />
+                <![CDATA[
+          AND loginName LIKE #{loginName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="loginIp != null and loginIp != ''">
+                <bind name="loginIp" value="'%' + _parameter.loginIp + '%'" />
+                <![CDATA[
+          AND loginIp LIKE #{loginIp,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="id != null and id != ''">
+                <![CDATA[
+          AND id = #{id,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="idBegin != null and idBegin != ''">
+                <![CDATA[
+          AND id >= #{idBegin,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="idEnd != null and idEnd != ''">
+                <![CDATA[
+          AND id <= #{idEnd,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="userDescribe != null and userDescribe != ''">
+                <bind name="userDescribe" value="'%' + _parameter.userDescribe + '%'" />
+                <![CDATA[
+          AND userDescribe LIKE #{userDescribe,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="email != null and email != ''">
+                <bind name="email" value="'%' + _parameter.email + '%'" />
+                <![CDATA[
+          AND email LIKE #{email,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="loginTotal != null and loginTotal != ''">
+                <![CDATA[
+          AND loginTotal = #{loginTotal,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="loginTotalBegin != null and loginTotalBegin != ''">
+                <![CDATA[
+          AND loginTotal >= #{loginTotalBegin,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="loginTotalEnd != null and loginTotalEnd != ''">
+                <![CDATA[
+          AND loginTotal <= #{loginTotalEnd,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="nickName != null and nickName != ''">
+                <bind name="nickName" value="'%' + _parameter.nickName + '%'" />
+                <![CDATA[
+          AND nickName LIKE #{nickName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="roleId != null and roleId != ''">
+                <![CDATA[
+          AND roleId = #{roleId,jdbcType=CHAR}
+        ]]>
+            </if>
+            <if test="updateTime != null ">
+                <![CDATA[
+          AND updateTime = #{updateTime,jdbcType=DATE}
+        ]]>
+            </if>
+            <if test="updateTimeBegin != null ">
+                <![CDATA[
+          AND updateTime >= #{updateTimeBegin,jdbcType=DATE}
+        ]]>
+            </if>
+            <if test="updateTimeEnd != null ">
+                <![CDATA[
+          AND updateTime <= #{updateTimeEnd,jdbcType=DATE}
+        ]]>
+            </if>
+            <if test="userName != null and userName != ''">
+                <bind name="userName" value="'%' + _parameter.userName + '%'" />
+                <![CDATA[
+          AND userName LIKE #{userName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="closeUserTime != null ">
+                <![CDATA[
+          AND closeUserTime = #{closeUserTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="closeUserTimeBegin != null ">
+                <![CDATA[
+          AND closeUserTime >= #{closeUserTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="closeUserTimeEnd != null ">
+                <![CDATA[
+          AND closeUserTime <= #{closeUserTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <!--  <if test="userId != null and userId != ''">
+               <![CDATA[
+                 AND userId = #{userId,jdbcType=CHAR}
+               ]]>
+             </if> -->
+            <if test="lastLoginTime != null ">
+                <![CDATA[
+          AND lastLoginTime = #{lastLoginTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="lastLoginTimeBegin != null ">
+                <![CDATA[
+          AND lastLoginTime >= #{lastLoginTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="lastLoginTimeEnd != null ">
+                <![CDATA[
+          AND lastLoginTime <= #{lastLoginTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="mobilePhone != null and mobilePhone != ''">
+                <bind name="mobilePhone" value="'%' + _parameter.mobilePhone + '%'" />
+                <![CDATA[
+          AND mobilePhone LIKE #{mobilePhone,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="userPortrait != null and userPortrait != ''">
+                <bind name="userPortrait" value="'%' + _parameter.userPortrait + '%'" />
+                <![CDATA[
+          AND userPortrait LIKE #{userPortrait,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="createTime != null ">
+                <![CDATA[
+          AND createTime = #{createTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="createTimeBegin != null ">
+                <![CDATA[
+          AND createTime >= #{createTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="createTimeEnd != null ">
+                <![CDATA[
+          AND createTime <= #{createTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="closeUserName != null and closeUserName != ''">
+                <bind name="closeUserName" value="'%' + _parameter.closeUserName + '%'" />
+                <![CDATA[
+          AND closeUserName LIKE #{closeUserName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+        </where>
+    </select>
+    <insert id="insertBySingle" parameterType="com.lk.entity.database.UserInfoBean" >
+        <![CDATA[
+      INSERT INTO t_user_info (
+    ]]>
+        <choose>
+            <when test="field!=null and field!=''">
+                <![CDATA[
+          ${field}
+        ]]>
+            </when>
+            <otherwise>
+                <include refid="Base_Column_List" />
+            </otherwise>
+        </choose>
+        <![CDATA[
+      )VALUES(
+    ]]>
+        <trim suffixOverrides="," >
+            <if test="authIp != null ">
+                <![CDATA[
+          #{authIp,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="operationStatus != null ">
+                <![CDATA[
+          #{operationStatus,jdbcType=INTEGER},
+        ]]>
+            </if>
+            <if test="userStatus != null ">
+                <![CDATA[
+          #{userStatus,jdbcType=INTEGER},
+        ]]>
+            </if>
+            <if test="createUserName != null ">
+                <![CDATA[
+          #{createUserName,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="remark != null ">
+                <![CDATA[
+          #{remark,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="openUserName != null ">
+                <![CDATA[
+          #{openUserName,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="openUserTime != null ">
+                <![CDATA[
+          #{openUserTime,jdbcType=TIMESTAMP},
+        ]]>
+            </if>
+            <if test="telePhone != null ">
+                <![CDATA[
+          #{telePhone,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="lastLoginIp != null ">
+                <![CDATA[
+          #{lastLoginIp,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="password != null ">
+                <![CDATA[
+          #{password,jdbcType=CHAR},
+        ]]>
+            </if>
+            <if test="loginTime != null ">
+                <![CDATA[
+          #{loginTime,jdbcType=TIMESTAMP},
+        ]]>
+            </if>
+            <if test="merchantId != null ">
+                <![CDATA[
+          #{merchantId,jdbcType=CHAR},
+        ]]>
+            </if>
+            <if test="loginName != null ">
+                <![CDATA[
+          #{loginName,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="loginIp != null ">
+                <![CDATA[
+          #{loginIp,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="id != null ">
+                <![CDATA[
+          #{id,jdbcType=BIGINT},
+        ]]>
+            </if>
+            <if test="userDescribe != null ">
+                <![CDATA[
+          #{userDescribe,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="email != null ">
+                <![CDATA[
+          #{email,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="loginTotal != null ">
+                <![CDATA[
+          #{loginTotal,jdbcType=BIGINT},
+        ]]>
+            </if>
+            <if test="nickName != null ">
+                <![CDATA[
+          #{nickName,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="roleId != null ">
+                <![CDATA[
+          #{roleId,jdbcType=CHAR},
+        ]]>
+            </if>
+            <if test="updateTime != null ">
+                <![CDATA[
+          #{updateTime,jdbcType=DATE},
+        ]]>
+            </if>
+            <if test="userName != null ">
+                <![CDATA[
+          #{userName,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="closeUserTime != null ">
+                <![CDATA[
+          #{closeUserTime,jdbcType=TIMESTAMP},
+        ]]>
+            </if>
+            <if test="userId != null ">
+                <![CDATA[
+          #{userId,jdbcType=CHAR},
+        ]]>
+            </if>
+            <if test="lastLoginTime != null ">
+                <![CDATA[
+          #{lastLoginTime,jdbcType=TIMESTAMP},
+        ]]>
+            </if>
+            <if test="mobilePhone != null ">
+                <![CDATA[
+          #{mobilePhone,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="userPortrait != null ">
+                <![CDATA[
+          #{userPortrait,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="createTime != null ">
+                <![CDATA[
+          #{createTime,jdbcType=TIMESTAMP},
+        ]]>
+            </if>
+            <if test="closeUserName != null ">
+                <![CDATA[
+          #{closeUserName,jdbcType=VARCHAR},
+        ]]>
+            </if>
+        </trim>
+        <![CDATA[
+      )
+    ]]>
+    </insert>
+    <insert id="insertAll" parameterType="java.util.List" >
+        <![CDATA[
+       INSERT INTO t_user_info (
+      ]]>
+        <include refid="Base_Column_List" />
+        <![CDATA[
+        )VALUES
+      ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            <trim suffixOverrides="," >
+                <choose>
+                    <when test="item.authIp != null ">
+                        <![CDATA[
+              #{item.authIp,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.operationStatus != null ">
+                        <![CDATA[
+              #{item.operationStatus,jdbcType=INTEGER},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.userStatus != null ">
+                        <![CDATA[
+              #{item.userStatus,jdbcType=INTEGER},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.createUserName != null ">
+                        <![CDATA[
+              #{item.createUserName,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.remark != null ">
+                        <![CDATA[
+              #{item.remark,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.openUserName != null ">
+                        <![CDATA[
+              #{item.openUserName,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.openUserTime != null ">
+                        <![CDATA[
+              #{item.openUserTime,jdbcType=TIMESTAMP},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.telePhone != null ">
+                        <![CDATA[
+              #{item.telePhone,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.lastLoginIp != null ">
+                        <![CDATA[
+              #{item.lastLoginIp,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.password != null ">
+                        <![CDATA[
+              #{item.password,jdbcType=CHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.loginTime != null ">
+                        <![CDATA[
+              #{item.loginTime,jdbcType=TIMESTAMP},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.merchantId != null ">
+                        <![CDATA[
+              #{item.merchantId,jdbcType=CHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.loginName != null ">
+                        <![CDATA[
+              #{item.loginName,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.loginIp != null ">
+                        <![CDATA[
+              #{item.loginIp,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.id != null ">
+                        <![CDATA[
+              #{item.id,jdbcType=BIGINT},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.userDescribe != null ">
+                        <![CDATA[
+              #{item.userDescribe,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.email != null ">
+                        <![CDATA[
+              #{item.email,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.loginTotal != null ">
+                        <![CDATA[
+              #{item.loginTotal,jdbcType=BIGINT},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.nickName != null ">
+                        <![CDATA[
+              #{item.nickName,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.roleId != null ">
+                        <![CDATA[
+              #{item.roleId,jdbcType=CHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.updateTime != null ">
+                        <![CDATA[
+              #{item.updateTime,jdbcType=DATE},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.userName != null ">
+                        <![CDATA[
+              #{item.userName,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.closeUserTime != null ">
+                        <![CDATA[
+              #{item.closeUserTime,jdbcType=TIMESTAMP},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.userId != null ">
+                        <![CDATA[
+              #{item.userId,jdbcType=CHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.lastLoginTime != null ">
+                        <![CDATA[
+              #{item.lastLoginTime,jdbcType=TIMESTAMP},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.mobilePhone != null ">
+                        <![CDATA[
+              #{item.mobilePhone,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.userPortrait != null ">
+                        <![CDATA[
+              #{item.userPortrait,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.createTime != null ">
+                        <![CDATA[
+              #{item.createTime,jdbcType=TIMESTAMP},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.closeUserName != null ">
+                        <![CDATA[
+              #{item.closeUserName,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+            </trim>
+            <![CDATA[
+        )
+      ]]>
+        </foreach>
+    </insert>
+    <insert id="insertBySingleResultKey" parameterType="com.lk.entity.database.UserInfoBean" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[
+      INSERT INTO t_user_info (
+    ]]>
+        <choose>
+            <when test="field!=null and field!=''">
+                <![CDATA[
+          ${field}
+        ]]>
+            </when>
+            <otherwise>
+                <include refid="Base_Column_List" />
+            </otherwise>
+        </choose>
+        <![CDATA[
+      )VALUES(
+    ]]>
+        <trim suffixOverrides="," >
+            <if test="authIp != null ">
+                <![CDATA[
+          #{authIp,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="operationStatus != null ">
+                <![CDATA[
+          #{operationStatus,jdbcType=INTEGER},
+        ]]>
+            </if>
+            <if test="userStatus != null ">
+                <![CDATA[
+          #{userStatus,jdbcType=INTEGER},
+        ]]>
+            </if>
+            <if test="createUserName != null ">
+                <![CDATA[
+          #{createUserName,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="remark != null ">
+                <![CDATA[
+          #{remark,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="openUserName != null ">
+                <![CDATA[
+          #{openUserName,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="openUserTime != null ">
+                <![CDATA[
+          #{openUserTime,jdbcType=TIMESTAMP},
+        ]]>
+            </if>
+            <if test="telePhone != null ">
+                <![CDATA[
+          #{telePhone,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="lastLoginIp != null ">
+                <![CDATA[
+          #{lastLoginIp,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="password != null ">
+                <![CDATA[
+          #{password,jdbcType=CHAR},
+        ]]>
+            </if>
+            <if test="loginTime != null ">
+                <![CDATA[
+          #{loginTime,jdbcType=TIMESTAMP},
+        ]]>
+            </if>
+            <if test="merchantId != null ">
+                <![CDATA[
+          #{merchantId,jdbcType=CHAR},
+        ]]>
+            </if>
+            <if test="loginName != null ">
+                <![CDATA[
+          #{loginName,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="loginIp != null ">
+                <![CDATA[
+          #{loginIp,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="id != null ">
+                <![CDATA[
+          #{id,jdbcType=BIGINT},
+        ]]>
+            </if>
+            <if test="userDescribe != null ">
+                <![CDATA[
+          #{userDescribe,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="email != null ">
+                <![CDATA[
+          #{email,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="loginTotal != null ">
+                <![CDATA[
+          #{loginTotal,jdbcType=BIGINT},
+        ]]>
+            </if>
+            <if test="nickName != null ">
+                <![CDATA[
+          #{nickName,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="roleId != null ">
+                <![CDATA[
+          #{roleId,jdbcType=CHAR},
+        ]]>
+            </if>
+            <if test="updateTime != null ">
+                <![CDATA[
+          #{updateTime,jdbcType=DATE},
+        ]]>
+            </if>
+            <if test="userName != null ">
+                <![CDATA[
+          #{userName,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="closeUserTime != null ">
+                <![CDATA[
+          #{closeUserTime,jdbcType=TIMESTAMP},
+        ]]>
+            </if>
+            <if test="userId != null ">
+                <![CDATA[
+          #{userId,jdbcType=CHAR},
+        ]]>
+            </if>
+            <if test="lastLoginTime != null ">
+                <![CDATA[
+          #{lastLoginTime,jdbcType=TIMESTAMP},
+        ]]>
+            </if>
+            <if test="mobilePhone != null ">
+                <![CDATA[
+          #{mobilePhone,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="userPortrait != null ">
+                <![CDATA[
+          #{userPortrait,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="createTime != null ">
+                <![CDATA[
+          #{createTime,jdbcType=TIMESTAMP},
+        ]]>
+            </if>
+            <if test="closeUserName != null ">
+                <![CDATA[
+          #{closeUserName,jdbcType=VARCHAR},
+        ]]>
+            </if>
+        </trim>
+        <![CDATA[
+      )
+    ]]>
+    </insert>
+    <insert id="insertAllResultKey" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[
+      INSERT INTO t_user_info (
+      ]]>
+        <include refid="Base_Column_List" />
+        <![CDATA[
+          )VALUES
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+            <![CDATA[
+        (
+      ]]>
+            <trim suffixOverrides="," >
+                <choose>
+                    <when test="item.authIp != null ">
+                        <![CDATA[
+              #{item.authIp,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.operationStatus != null ">
+                        <![CDATA[
+              #{item.operationStatus,jdbcType=INTEGER},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.userStatus != null ">
+                        <![CDATA[
+              #{item.userStatus,jdbcType=INTEGER},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.createUserName != null ">
+                        <![CDATA[
+              #{item.createUserName,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.remark != null ">
+                        <![CDATA[
+              #{item.remark,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.openUserName != null ">
+                        <![CDATA[
+              #{item.openUserName,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.openUserTime != null ">
+                        <![CDATA[
+              #{item.openUserTime,jdbcType=TIMESTAMP},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.telePhone != null ">
+                        <![CDATA[
+              #{item.telePhone,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.lastLoginIp != null ">
+                        <![CDATA[
+              #{item.lastLoginIp,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.password != null ">
+                        <![CDATA[
+              #{item.password,jdbcType=CHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.loginTime != null ">
+                        <![CDATA[
+              #{item.loginTime,jdbcType=TIMESTAMP},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.merchantId != null ">
+                        <![CDATA[
+              #{item.merchantId,jdbcType=CHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.loginName != null ">
+                        <![CDATA[
+              #{item.loginName,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.loginIp != null ">
+                        <![CDATA[
+              #{item.loginIp,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.id != null ">
+                        <![CDATA[
+              #{item.id,jdbcType=BIGINT},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.userDescribe != null ">
+                        <![CDATA[
+              #{item.userDescribe,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.email != null ">
+                        <![CDATA[
+              #{item.email,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.loginTotal != null ">
+                        <![CDATA[
+              #{item.loginTotal,jdbcType=BIGINT},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.nickName != null ">
+                        <![CDATA[
+              #{item.nickName,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.roleId != null ">
+                        <![CDATA[
+              #{item.roleId,jdbcType=CHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.updateTime != null ">
+                        <![CDATA[
+              #{item.updateTime,jdbcType=DATE},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.userName != null ">
+                        <![CDATA[
+              #{item.userName,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.closeUserTime != null ">
+                        <![CDATA[
+              #{item.closeUserTime,jdbcType=TIMESTAMP},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.userId != null ">
+                        <![CDATA[
+              #{item.userId,jdbcType=CHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.lastLoginTime != null ">
+                        <![CDATA[
+              #{item.lastLoginTime,jdbcType=TIMESTAMP},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.mobilePhone != null ">
+                        <![CDATA[
+              #{item.mobilePhone,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.userPortrait != null ">
+                        <![CDATA[
+              #{item.userPortrait,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.createTime != null ">
+                        <![CDATA[
+              #{item.createTime,jdbcType=TIMESTAMP},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="item.closeUserName != null ">
+                        <![CDATA[
+              #{item.closeUserName,jdbcType=VARCHAR},
+            ]]>
+                    </when>
+                    <otherwise>
+                        <![CDATA[
+              DEFAULT,
+            ]]>
+                    </otherwise>
+                </choose>
+            </trim>
+            <![CDATA[
+        )
+      ]]>
+        </foreach>
+    </insert>
+    <update id="updateBySingle" parameterType="com.lk.entity.database.UserInfoBean" >
+        <![CDATA[
+      UPDATE t_user_info
+    ]]>
+        <set>
+            <if test="authIp != null ">
+                <![CDATA[
+          authIp = #{authIp,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="operationStatus != null ">
+                <![CDATA[
+          operationStatus = #{operationStatus,jdbcType=INTEGER},
+        ]]>
+            </if>
+            <if test="userStatus != null ">
+                <![CDATA[
+          userStatus = #{userStatus,jdbcType=INTEGER},
+        ]]>
+            </if>
+            <if test="createUserName != null ">
+                <![CDATA[
+          createUserName = #{createUserName,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="remark != null ">
+                <![CDATA[
+          remark = #{remark,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="openUserName != null ">
+                <![CDATA[
+          openUserName = #{openUserName,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="openUserTime != null ">
+                <![CDATA[
+          openUserTime = #{openUserTime,jdbcType=TIMESTAMP},
+        ]]>
+            </if>
+            <if test="telePhone != null ">
+                <![CDATA[
+          telePhone = #{telePhone,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="lastLoginIp != null ">
+                <![CDATA[
+          lastLoginIp = #{lastLoginIp,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="password != null ">
+                <![CDATA[
+          password = #{password,jdbcType=CHAR},
+        ]]>
+            </if>
+            <if test="loginTime != null ">
+                <![CDATA[
+          loginTime = #{loginTime,jdbcType=TIMESTAMP},
+        ]]>
+            </if>
+            <if test="merchantId != null ">
+                <![CDATA[
+          merchantId = #{merchantId,jdbcType=CHAR},
+        ]]>
+            </if>
+            <if test="loginName != null ">
+                <![CDATA[
+          loginName = #{loginName,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="loginIp != null ">
+                <![CDATA[
+          loginIp = #{loginIp,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="userDescribe != null ">
+                <![CDATA[
+          userDescribe = #{userDescribe,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="email != null ">
+                <![CDATA[
+          email = #{email,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="loginTotal != null ">
+                <![CDATA[
+          loginTotal = #{loginTotal,jdbcType=BIGINT},
+        ]]>
+            </if>
+            <if test="nickName != null ">
+                <![CDATA[
+          nickName = #{nickName,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="roleId != null ">
+                <![CDATA[
+          roleId = #{roleId,jdbcType=CHAR},
+        ]]>
+            </if>
+            <if test="updateTime != null ">
+                <![CDATA[
+          updateTime = #{updateTime,jdbcType=DATE},
+        ]]>
+            </if>
+            <if test="userName != null ">
+                <![CDATA[
+          userName = #{userName,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="closeUserTime != null ">
+                <![CDATA[
+          closeUserTime = #{closeUserTime,jdbcType=TIMESTAMP},
+        ]]>
+            </if>
+            <if test="userId != null ">
+                <![CDATA[
+          userId = #{userId,jdbcType=CHAR},
+        ]]>
+            </if>
+            <if test="lastLoginTime != null ">
+                <![CDATA[
+          lastLoginTime = #{lastLoginTime,jdbcType=TIMESTAMP},
+        ]]>
+            </if>
+            <if test="mobilePhone != null ">
+                <![CDATA[
+          mobilePhone = #{mobilePhone,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="userPortrait != null ">
+                <![CDATA[
+          userPortrait = #{userPortrait,jdbcType=VARCHAR},
+        ]]>
+            </if>
+            <if test="createTime != null ">
+                <![CDATA[
+          createTime = #{createTime,jdbcType=TIMESTAMP},
+        ]]>
+            </if>
+            <if test="closeUserName != null ">
+                <![CDATA[
+          closeUserName = #{closeUserName,jdbcType=VARCHAR},
+        ]]>
+            </if>
+        </set>
+        <where>
+            <if test="userInfoBean.authIp != null and userInfoBean.authIp != ''">
+                <bind name="userInfoBean.authIp" value="'%' + _parameter.userInfoBean.authIp + '%'" />
+                <![CDATA[
+          AND authIp LIKE #{userInfoBean.authIp,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="userInfoBean.operationStatus != null and userInfoBean.operationStatus != ''">
+                <![CDATA[
+          AND operationStatus = #{userInfoBean.operationStatus,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="userInfoBean.operationStatusBegin != null and userInfoBean.operationStatusBegin != ''">
+                <![CDATA[
+          AND operationStatus >= #{userInfoBean.operationStatusBegin,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="userInfoBean.operationStatusEnd != null and userInfoBean.operationStatusEnd != ''">
+                <![CDATA[
+          AND operationStatus <= #{userInfoBean.operationStatusEnd,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="userInfoBean.userStatus != null and userInfoBean.userStatus != ''">
+                <![CDATA[
+          AND userStatus = #{userInfoBean.userStatus,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="userInfoBean.userStatusBegin != null and userInfoBean.userStatusBegin != ''">
+                <![CDATA[
+          AND userStatus >= #{userInfoBean.userStatusBegin,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="userInfoBean.userStatusEnd != null and userInfoBean.userStatusEnd != ''">
+                <![CDATA[
+          AND userStatus <= #{userInfoBean.userStatusEnd,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="userInfoBean.createUserName != null and userInfoBean.createUserName != ''">
+                <bind name="userInfoBean.createUserName" value="'%' + _parameter.userInfoBean.createUserName + '%'" />
+                <![CDATA[
+          AND createUserName LIKE #{userInfoBean.createUserName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="userInfoBean.remark != null and userInfoBean.remark != ''">
+                <bind name="userInfoBean.remark" value="'%' + _parameter.userInfoBean.remark + '%'" />
+                <![CDATA[
+          AND remark LIKE #{userInfoBean.remark,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="userInfoBean.openUserName != null and userInfoBean.openUserName != ''">
+                <bind name="userInfoBean.openUserName" value="'%' + _parameter.userInfoBean.openUserName + '%'" />
+                <![CDATA[
+          AND openUserName LIKE #{userInfoBean.openUserName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="userInfoBean.openUserTime != null ">
+                <![CDATA[
+          AND openUserTime = #{userInfoBean.openUserTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="userInfoBean.openUserTimeBegin != null ">
+                <![CDATA[
+          AND openUserTime >= #{userInfoBean.openUserTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="userInfoBean.openUserTimeEnd != null ">
+                <![CDATA[
+          AND openUserTime <= #{userInfoBean.openUserTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="userInfoBean.telePhone != null and userInfoBean.telePhone != ''">
+                <bind name="userInfoBean.telePhone" value="'%' + _parameter.userInfoBean.telePhone + '%'" />
+                <![CDATA[
+          AND telePhone LIKE #{userInfoBean.telePhone,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="userInfoBean.lastLoginIp != null and userInfoBean.lastLoginIp != ''">
+                <bind name="userInfoBean.lastLoginIp" value="'%' + _parameter.userInfoBean.lastLoginIp + '%'" />
+                <![CDATA[
+          AND lastLoginIp LIKE #{userInfoBean.lastLoginIp,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="userInfoBean.password != null and userInfoBean.password != ''">
+                <![CDATA[
+          AND password = #{userInfoBean.password,jdbcType=CHAR}
+        ]]>
+            </if>
+            <if test="userInfoBean.loginTime != null ">
+                <![CDATA[
+          AND loginTime = #{userInfoBean.loginTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="userInfoBean.loginTimeBegin != null ">
+                <![CDATA[
+          AND loginTime >= #{userInfoBean.loginTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="userInfoBean.loginTimeEnd != null ">
+                <![CDATA[
+          AND loginTime <= #{userInfoBean.loginTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="userInfoBean.merchantId != null and userInfoBean.merchantId != ''">
+                <![CDATA[
+          AND merchantId = #{userInfoBean.merchantId,jdbcType=CHAR}
+        ]]>
+            </if>
+            <if test="userInfoBean.loginName != null and userInfoBean.loginName != ''">
+                <bind name="userInfoBean.loginName" value="'%' + _parameter.userInfoBean.loginName + '%'" />
+                <![CDATA[
+          AND loginName LIKE #{userInfoBean.loginName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="userInfoBean.loginIp != null and userInfoBean.loginIp != ''">
+                <bind name="userInfoBean.loginIp" value="'%' + _parameter.userInfoBean.loginIp + '%'" />
+                <![CDATA[
+          AND loginIp LIKE #{userInfoBean.loginIp,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="userInfoBean.id != null and userInfoBean.id != ''">
+                <![CDATA[
+          AND id = #{userInfoBean.id,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="userInfoBean.idBegin != null and userInfoBean.idBegin != ''">
+                <![CDATA[
+          AND id >= #{userInfoBean.idBegin,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="userInfoBean.idEnd != null and userInfoBean.idEnd != ''">
+                <![CDATA[
+          AND id <= #{userInfoBean.idEnd,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="userInfoBean.userDescribe != null and userInfoBean.userDescribe != ''">
+                <bind name="userInfoBean.userDescribe" value="'%' + _parameter.userInfoBean.userDescribe + '%'" />
+                <![CDATA[
+          AND userDescribe LIKE #{userInfoBean.userDescribe,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="userInfoBean.email != null and userInfoBean.email != ''">
+                <bind name="userInfoBean.email" value="'%' + _parameter.userInfoBean.email + '%'" />
+                <![CDATA[
+          AND email LIKE #{userInfoBean.email,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="userInfoBean.loginTotal != null and userInfoBean.loginTotal != ''">
+                <![CDATA[
+          AND loginTotal = #{userInfoBean.loginTotal,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="userInfoBean.loginTotalBegin != null and userInfoBean.loginTotalBegin != ''">
+                <![CDATA[
+          AND loginTotal >= #{userInfoBean.loginTotalBegin,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="userInfoBean.loginTotalEnd != null and userInfoBean.loginTotalEnd != ''">
+                <![CDATA[
+          AND loginTotal <= #{userInfoBean.loginTotalEnd,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="userInfoBean.nickName != null and userInfoBean.nickName != ''">
+                <bind name="userInfoBean.nickName" value="'%' + _parameter.userInfoBean.nickName + '%'" />
+                <![CDATA[
+          AND nickName LIKE #{userInfoBean.nickName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="userInfoBean.roleId != null and userInfoBean.roleId != ''">
+                <![CDATA[
+          AND roleId = #{userInfoBean.roleId,jdbcType=CHAR}
+        ]]>
+            </if>
+            <if test="userInfoBean.updateTime != null ">
+                <![CDATA[
+          AND updateTime = #{userInfoBean.updateTime,jdbcType=DATE}
+        ]]>
+            </if>
+            <if test="userInfoBean.updateTimeBegin != null ">
+                <![CDATA[
+          AND updateTime >= #{userInfoBean.updateTimeBegin,jdbcType=DATE}
+        ]]>
+            </if>
+            <if test="userInfoBean.updateTimeEnd != null ">
+                <![CDATA[
+          AND updateTime <= #{userInfoBean.updateTimeEnd,jdbcType=DATE}
+        ]]>
+            </if>
+            <if test="userInfoBean.userName != null and userInfoBean.userName != ''">
+                <bind name="userInfoBean.userName" value="'%' + _parameter.userInfoBean.userName + '%'" />
+                <![CDATA[
+          AND userName LIKE #{userInfoBean.userName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="userInfoBean.closeUserTime != null ">
+                <![CDATA[
+          AND closeUserTime = #{userInfoBean.closeUserTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="userInfoBean.closeUserTimeBegin != null ">
+                <![CDATA[
+          AND closeUserTime >= #{userInfoBean.closeUserTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="userInfoBean.closeUserTimeEnd != null ">
+                <![CDATA[
+          AND closeUserTime <= #{userInfoBean.closeUserTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="userInfoBean.userId != null and userInfoBean.userId != ''">
+                <![CDATA[
+          AND userId = #{userInfoBean.userId,jdbcType=CHAR}
+        ]]>
+            </if>
+            <if test="userInfoBean.lastLoginTime != null ">
+                <![CDATA[
+          AND lastLoginTime = #{userInfoBean.lastLoginTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="userInfoBean.lastLoginTimeBegin != null ">
+                <![CDATA[
+          AND lastLoginTime >= #{userInfoBean.lastLoginTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="userInfoBean.lastLoginTimeEnd != null ">
+                <![CDATA[
+          AND lastLoginTime <= #{userInfoBean.lastLoginTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="userInfoBean.mobilePhone != null and userInfoBean.mobilePhone != ''">
+                <bind name="userInfoBean.mobilePhone" value="'%' + _parameter.userInfoBean.mobilePhone + '%'" />
+                <![CDATA[
+          AND mobilePhone LIKE #{userInfoBean.mobilePhone,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="userInfoBean.userPortrait != null and userInfoBean.userPortrait != ''">
+                <bind name="userInfoBean.userPortrait" value="'%' + _parameter.userInfoBean.userPortrait + '%'" />
+                <![CDATA[
+          AND userPortrait LIKE #{userInfoBean.userPortrait,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="userInfoBean.createTime != null ">
+                <![CDATA[
+          AND createTime = #{userInfoBean.createTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="userInfoBean.createTimeBegin != null ">
+                <![CDATA[
+          AND createTime >= #{userInfoBean.createTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="userInfoBean.createTimeEnd != null ">
+                <![CDATA[
+          AND createTime <= #{userInfoBean.createTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="userInfoBean.closeUserName != null and userInfoBean.closeUserName != ''">
+                <bind name="userInfoBean.closeUserName" value="'%' + _parameter.userInfoBean.closeUserName + '%'" />
+                <![CDATA[
+          AND closeUserName LIKE #{userInfoBean.closeUserName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+        </where>
+        <if test="orderByParam != null and orderByParam != ''">
+            <![CDATA[
+      ORDER BY ${orderByParam}
+      ]]>
+            <if test="orderByAccording != null and orderByAccording != ''">
+                <![CDATA[
+          ${orderByAccording}
+        ]]>
+            </if>
+        </if>
+        <if test="pageSize>0">
+            <bind name="pageNo" value="(_parameter.pageNo-1)*_parameter.pageSize" />
+            <![CDATA[
+        LIMIT #{pageSize,jdbcType=INTEGER}
+      ]]>
+        </if>
+    </update>
+    <update id="updateAll" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            <![CDATA[
+        UPDATE t_user_info
+      ]]>
+            <set>
+                <if test="item.authIp != null ">
+                    <![CDATA[
+            authIp = #{item.authIp,jdbcType=VARCHAR},
+          ]]>
+                </if>
+                <if test="item.operationStatus != null ">
+                    <![CDATA[
+            operationStatus = #{item.operationStatus,jdbcType=INTEGER},
+          ]]>
+                </if>
+                <if test="item.userStatus != null ">
+                    <![CDATA[
+            userStatus = #{item.userStatus,jdbcType=INTEGER},
+          ]]>
+                </if>
+                <if test="item.createUserName != null ">
+                    <![CDATA[
+            createUserName = #{item.createUserName,jdbcType=VARCHAR},
+          ]]>
+                </if>
+                <if test="item.remark != null ">
+                    <![CDATA[
+            remark = #{item.remark,jdbcType=VARCHAR},
+          ]]>
+                </if>
+                <if test="item.openUserName != null ">
+                    <![CDATA[
+            openUserName = #{item.openUserName,jdbcType=VARCHAR},
+          ]]>
+                </if>
+                <if test="item.openUserTime != null ">
+                    <![CDATA[
+            openUserTime = #{item.openUserTime,jdbcType=TIMESTAMP},
+          ]]>
+                </if>
+                <if test="item.telePhone != null ">
+                    <![CDATA[
+            telePhone = #{item.telePhone,jdbcType=VARCHAR},
+          ]]>
+                </if>
+                <if test="item.lastLoginIp != null ">
+                    <![CDATA[
+            lastLoginIp = #{item.lastLoginIp,jdbcType=VARCHAR},
+          ]]>
+                </if>
+                <if test="item.password != null ">
+                    <![CDATA[
+            password = #{item.password,jdbcType=CHAR},
+          ]]>
+                </if>
+                <if test="item.loginTime != null ">
+                    <![CDATA[
+            loginTime = #{item.loginTime,jdbcType=TIMESTAMP},
+          ]]>
+                </if>
+                <if test="item.merchantId != null ">
+                    <![CDATA[
+            merchantId = #{item.merchantId,jdbcType=CHAR},
+          ]]>
+                </if>
+                <if test="item.loginName != null ">
+                    <![CDATA[
+            loginName = #{item.loginName,jdbcType=VARCHAR},
+          ]]>
+                </if>
+                <if test="item.loginIp != null ">
+                    <![CDATA[
+            loginIp = #{item.loginIp,jdbcType=VARCHAR},
+          ]]>
+                </if>
+                <if test="item.userDescribe != null ">
+                    <![CDATA[
+            userDescribe = #{item.userDescribe,jdbcType=VARCHAR},
+          ]]>
+                </if>
+                <if test="item.email != null ">
+                    <![CDATA[
+            email = #{item.email,jdbcType=VARCHAR},
+          ]]>
+                </if>
+                <if test="item.loginTotal != null ">
+                    <![CDATA[
+            loginTotal = #{item.loginTotal,jdbcType=BIGINT},
+          ]]>
+                </if>
+                <if test="item.nickName != null ">
+                    <![CDATA[
+            nickName = #{item.nickName,jdbcType=VARCHAR},
+          ]]>
+                </if>
+                <if test="item.roleId != null ">
+                    <![CDATA[
+            roleId = #{item.roleId,jdbcType=CHAR},
+          ]]>
+                </if>
+                <if test="item.updateTime != null ">
+                    <![CDATA[
+            updateTime = #{item.updateTime,jdbcType=DATE},
+          ]]>
+                </if>
+                <if test="item.userName != null ">
+                    <![CDATA[
+            userName = #{item.userName,jdbcType=VARCHAR},
+          ]]>
+                </if>
+                <if test="item.closeUserTime != null ">
+                    <![CDATA[
+            closeUserTime = #{item.closeUserTime,jdbcType=TIMESTAMP},
+          ]]>
+                </if>
+                <if test="item.userId != null ">
+                    <![CDATA[
+            userId = #{item.userId,jdbcType=CHAR},
+          ]]>
+                </if>
+                <if test="item.lastLoginTime != null ">
+                    <![CDATA[
+            lastLoginTime = #{item.lastLoginTime,jdbcType=TIMESTAMP},
+          ]]>
+                </if>
+                <if test="item.mobilePhone != null ">
+                    <![CDATA[
+            mobilePhone = #{item.mobilePhone,jdbcType=VARCHAR},
+          ]]>
+                </if>
+                <if test="item.userPortrait != null ">
+                    <![CDATA[
+            userPortrait = #{item.userPortrait,jdbcType=VARCHAR},
+          ]]>
+                </if>
+                <if test="item.createTime != null ">
+                    <![CDATA[
+            createTime = #{item.createTime,jdbcType=TIMESTAMP},
+          ]]>
+                </if>
+                <if test="item.closeUserName != null ">
+                    <![CDATA[
+            closeUserName = #{item.closeUserName,jdbcType=VARCHAR},
+          ]]>
+                </if>
+            </set>
+            <where>
+                <if test="item.userInfoBean.authIp != null and item.userInfoBean.authIp != ''">
+                    <bind name="item.userInfoBean.authIp" value="'%' + item.userInfoBean.authIp + '%'" />
+                    <![CDATA[
+            AND authIp LIKE #{item.userInfoBean.authIp,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.operationStatus != null and item.userInfoBean.operationStatus != ''">
+                    <![CDATA[
+            AND operationStatus = #{item.userInfoBean.operationStatus,jdbcType=INTEGER}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.operationStatusBegin != null and item.userInfoBean.operationStatusBegin != ''">
+                    <![CDATA[
+            AND operationStatus >= #{item.userInfoBean.operationStatusBegin,jdbcType=INTEGER}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.operationStatusEnd != null and item.userInfoBean.operationStatusEnd != ''">
+                    <![CDATA[
+            AND operationStatus <= #{item.userInfoBean.operationStatusEnd,jdbcType=INTEGER}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.userStatus != null and item.userInfoBean.userStatus != ''">
+                    <![CDATA[
+            AND userStatus = #{item.userInfoBean.userStatus,jdbcType=INTEGER}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.userStatusBegin != null and item.userInfoBean.userStatusBegin != ''">
+                    <![CDATA[
+            AND userStatus >= #{item.userInfoBean.userStatusBegin,jdbcType=INTEGER}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.userStatusEnd != null and item.userInfoBean.userStatusEnd != ''">
+                    <![CDATA[
+            AND userStatus <= #{item.userInfoBean.userStatusEnd,jdbcType=INTEGER}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.createUserName != null and item.userInfoBean.createUserName != ''">
+                    <bind name="item.userInfoBean.createUserName" value="'%' + item.userInfoBean.createUserName + '%'" />
+                    <![CDATA[
+            AND createUserName LIKE #{item.userInfoBean.createUserName,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.remark != null and item.userInfoBean.remark != ''">
+                    <bind name="item.userInfoBean.remark" value="'%' + item.userInfoBean.remark + '%'" />
+                    <![CDATA[
+            AND remark LIKE #{item.userInfoBean.remark,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.openUserName != null and item.userInfoBean.openUserName != ''">
+                    <bind name="item.userInfoBean.openUserName" value="'%' + item.userInfoBean.openUserName + '%'" />
+                    <![CDATA[
+            AND openUserName LIKE #{item.userInfoBean.openUserName,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.openUserTime != null ">
+                    <![CDATA[
+            AND openUserTime = #{item.userInfoBean.openUserTime,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.openUserTimeBegin != null ">
+                    <![CDATA[
+            AND openUserTime >= #{item.userInfoBean.openUserTimeBegin,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.openUserTimeEnd != null ">
+                    <![CDATA[
+            AND openUserTime <= #{item.userInfoBean.openUserTimeEnd,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.telePhone != null and item.userInfoBean.telePhone != ''">
+                    <bind name="item.userInfoBean.telePhone" value="'%' + item.userInfoBean.telePhone + '%'" />
+                    <![CDATA[
+            AND telePhone LIKE #{item.userInfoBean.telePhone,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.lastLoginIp != null and item.userInfoBean.lastLoginIp != ''">
+                    <bind name="item.userInfoBean.lastLoginIp" value="'%' + item.userInfoBean.lastLoginIp + '%'" />
+                    <![CDATA[
+            AND lastLoginIp LIKE #{item.userInfoBean.lastLoginIp,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.password != null and item.userInfoBean.password != ''">
+                    <![CDATA[
+            AND password = #{item.userInfoBean.password,jdbcType=CHAR}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.loginTime != null ">
+                    <![CDATA[
+            AND loginTime = #{item.userInfoBean.loginTime,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.loginTimeBegin != null ">
+                    <![CDATA[
+            AND loginTime >= #{item.userInfoBean.loginTimeBegin,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.loginTimeEnd != null ">
+                    <![CDATA[
+            AND loginTime <= #{item.userInfoBean.loginTimeEnd,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.merchantId != null and item.userInfoBean.merchantId != ''">
+                    <![CDATA[
+            AND merchantId = #{item.userInfoBean.merchantId,jdbcType=CHAR}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.loginName != null and item.userInfoBean.loginName != ''">
+                    <bind name="item.userInfoBean.loginName" value="'%' + item.userInfoBean.loginName + '%'" />
+                    <![CDATA[
+            AND loginName LIKE #{item.userInfoBean.loginName,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.loginIp != null and item.userInfoBean.loginIp != ''">
+                    <bind name="item.userInfoBean.loginIp" value="'%' + item.userInfoBean.loginIp + '%'" />
+                    <![CDATA[
+            AND loginIp LIKE #{item.userInfoBean.loginIp,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.id != null and item.userInfoBean.id != ''">
+                    <![CDATA[
+            AND id = #{item.userInfoBean.id,jdbcType=BIGINT}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.idBegin != null and item.userInfoBean.idBegin != ''">
+                    <![CDATA[
+            AND id >= #{item.userInfoBean.idBegin,jdbcType=BIGINT}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.idEnd != null and item.userInfoBean.idEnd != ''">
+                    <![CDATA[
+            AND id <= #{item.userInfoBean.idEnd,jdbcType=BIGINT}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.userDescribe != null and item.userInfoBean.userDescribe != ''">
+                    <bind name="item.userInfoBean.userDescribe" value="'%' + item.userInfoBean.userDescribe + '%'" />
+                    <![CDATA[
+            AND userDescribe LIKE #{item.userInfoBean.userDescribe,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.email != null and item.userInfoBean.email != ''">
+                    <bind name="item.userInfoBean.email" value="'%' + item.userInfoBean.email + '%'" />
+                    <![CDATA[
+            AND email LIKE #{item.userInfoBean.email,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.loginTotal != null and item.userInfoBean.loginTotal != ''">
+                    <![CDATA[
+            AND loginTotal = #{item.userInfoBean.loginTotal,jdbcType=BIGINT}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.loginTotalBegin != null and item.userInfoBean.loginTotalBegin != ''">
+                    <![CDATA[
+            AND loginTotal >= #{item.userInfoBean.loginTotalBegin,jdbcType=BIGINT}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.loginTotalEnd != null and item.userInfoBean.loginTotalEnd != ''">
+                    <![CDATA[
+            AND loginTotal <= #{item.userInfoBean.loginTotalEnd,jdbcType=BIGINT}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.nickName != null and item.userInfoBean.nickName != ''">
+                    <bind name="item.userInfoBean.nickName" value="'%' + item.userInfoBean.nickName + '%'" />
+                    <![CDATA[
+            AND nickName LIKE #{item.userInfoBean.nickName,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.roleId != null and item.userInfoBean.roleId != ''">
+                    <![CDATA[
+            AND roleId = #{item.userInfoBean.roleId,jdbcType=CHAR}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.updateTime != null ">
+                    <![CDATA[
+            AND updateTime = #{item.userInfoBean.updateTime,jdbcType=DATE}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.updateTimeBegin != null ">
+                    <![CDATA[
+            AND updateTime >= #{item.userInfoBean.updateTimeBegin,jdbcType=DATE}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.updateTimeEnd != null ">
+                    <![CDATA[
+            AND updateTime <= #{item.userInfoBean.updateTimeEnd,jdbcType=DATE}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.userName != null and item.userInfoBean.userName != ''">
+                    <bind name="item.userInfoBean.userName" value="'%' + item.userInfoBean.userName + '%'" />
+                    <![CDATA[
+            AND userName LIKE #{item.userInfoBean.userName,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.closeUserTime != null ">
+                    <![CDATA[
+            AND closeUserTime = #{item.userInfoBean.closeUserTime,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.closeUserTimeBegin != null ">
+                    <![CDATA[
+            AND closeUserTime >= #{item.userInfoBean.closeUserTimeBegin,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.closeUserTimeEnd != null ">
+                    <![CDATA[
+            AND closeUserTime <= #{item.userInfoBean.closeUserTimeEnd,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.userId != null and item.userInfoBean.userId != ''">
+                    <![CDATA[
+            AND userId = #{item.userInfoBean.userId,jdbcType=CHAR}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.lastLoginTime != null ">
+                    <![CDATA[
+            AND lastLoginTime = #{item.userInfoBean.lastLoginTime,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.lastLoginTimeBegin != null ">
+                    <![CDATA[
+            AND lastLoginTime >= #{item.userInfoBean.lastLoginTimeBegin,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.lastLoginTimeEnd != null ">
+                    <![CDATA[
+            AND lastLoginTime <= #{item.userInfoBean.lastLoginTimeEnd,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.mobilePhone != null and item.userInfoBean.mobilePhone != ''">
+                    <bind name="item.userInfoBean.mobilePhone" value="'%' + item.userInfoBean.mobilePhone + '%'" />
+                    <![CDATA[
+            AND mobilePhone LIKE #{item.userInfoBean.mobilePhone,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.userPortrait != null and item.userInfoBean.userPortrait != ''">
+                    <bind name="item.userInfoBean.userPortrait" value="'%' + item.userInfoBean.userPortrait + '%'" />
+                    <![CDATA[
+            AND userPortrait LIKE #{item.userInfoBean.userPortrait,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.createTime != null ">
+                    <![CDATA[
+            AND createTime = #{item.userInfoBean.createTime,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.createTimeBegin != null ">
+                    <![CDATA[
+            AND createTime >= #{item.userInfoBean.createTimeBegin,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.createTimeEnd != null ">
+                    <![CDATA[
+            AND createTime <= #{item.userInfoBean.createTimeEnd,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.userInfoBean.closeUserName != null and item.userInfoBean.closeUserName != ''">
+                    <bind name="item.userInfoBean.closeUserName" value="'%' + item.userInfoBean.closeUserName + '%'" />
+                    <![CDATA[
+            AND closeUserName LIKE #{item.userInfoBean.closeUserName,jdbcType=VARCHAR}
+          ]]>
+                </if>
+            </where>
+            <if test="item.userInfoBean.orderByParam != null and item.userInfoBean.orderByParam != ''">
+                <![CDATA[
+        ORDER BY ${item.userInfoBean.orderByParam}
+        ]]>
+                <if test="item.userInfoBean.orderByAccording != null and item.userInfoBean.orderByAccording != ''">
+                    <![CDATA[
+          ${item.userInfoBean.orderByAccording}
+          ]]>
+                </if>
+            </if>
+            <if test="item.userInfoBean.pageSize>0">
+                <bind name="pageNo" value="(_parameter.pageNo-1)*_parameter.pageSize" />
+                <![CDATA[
+          LIMIT #{item.userInfoBean.pageSize,jdbcType=INTEGER}
+        ]]>
+            </if>
+        </foreach>
+    </update>
+    <delete id="deleteBySingle" parameterType="com.lk.entity.database.UserInfoBean">
+        <![CDATA[
+     delete from t_user_info
+    ]]>
+        <where>
+            <if test="authIp != null and authIp != ''">
+                <bind name="authIp" value="'%' + _parameter.authIp + '%'" />
+                <![CDATA[
+          AND authIp LIKE #{authIp,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="operationStatus != null and operationStatus != ''">
+                <![CDATA[
+          AND operationStatus = #{operationStatus,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="operationStatusBegin != null and operationStatusBegin != ''">
+                <![CDATA[
+          AND operationStatus >= #{operationStatusBegin,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="operationStatusEnd != null and operationStatusEnd != ''">
+                <![CDATA[
+          AND operationStatus <= #{operationStatusEnd,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="userStatus != null and userStatus != ''">
+                <![CDATA[
+          AND userStatus = #{userStatus,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="userStatusBegin != null and userStatusBegin != ''">
+                <![CDATA[
+          AND userStatus >= #{userStatusBegin,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="userStatusEnd != null and userStatusEnd != ''">
+                <![CDATA[
+          AND userStatus <= #{userStatusEnd,jdbcType=INTEGER}
+        ]]>
+            </if>
+            <if test="createUserName != null and createUserName != ''">
+                <bind name="createUserName" value="'%' + _parameter.createUserName + '%'" />
+                <![CDATA[
+          AND createUserName LIKE #{createUserName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="remark != null and remark != ''">
+                <bind name="remark" value="'%' + _parameter.remark + '%'" />
+                <![CDATA[
+          AND remark LIKE #{remark,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="openUserName != null and openUserName != ''">
+                <bind name="openUserName" value="'%' + _parameter.openUserName + '%'" />
+                <![CDATA[
+          AND openUserName LIKE #{openUserName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="openUserTime != null ">
+                <![CDATA[
+          AND openUserTime = #{openUserTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="openUserTimeBegin != null ">
+                <![CDATA[
+          AND openUserTime >= #{openUserTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="openUserTimeEnd != null ">
+                <![CDATA[
+          AND openUserTime <= #{openUserTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="telePhone != null and telePhone != ''">
+                <bind name="telePhone" value="'%' + _parameter.telePhone + '%'" />
+                <![CDATA[
+          AND telePhone LIKE #{telePhone,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="lastLoginIp != null and lastLoginIp != ''">
+                <bind name="lastLoginIp" value="'%' + _parameter.lastLoginIp + '%'" />
+                <![CDATA[
+          AND lastLoginIp LIKE #{lastLoginIp,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="password != null and password != ''">
+                <![CDATA[
+          AND password = #{password,jdbcType=CHAR}
+        ]]>
+            </if>
+            <if test="loginTime != null ">
+                <![CDATA[
+          AND loginTime = #{loginTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="loginTimeBegin != null ">
+                <![CDATA[
+          AND loginTime >= #{loginTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="loginTimeEnd != null ">
+                <![CDATA[
+          AND loginTime <= #{loginTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="merchantId != null and merchantId != ''">
+                <![CDATA[
+          AND merchantId = #{merchantId,jdbcType=CHAR}
+        ]]>
+            </if>
+            <if test="loginName != null and loginName != ''">
+                <bind name="loginName" value="'%' + _parameter.loginName + '%'" />
+                <![CDATA[
+          AND loginName LIKE #{loginName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="loginIp != null and loginIp != ''">
+                <bind name="loginIp" value="'%' + _parameter.loginIp + '%'" />
+                <![CDATA[
+          AND loginIp LIKE #{loginIp,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="id != null and id != ''">
+                <![CDATA[
+          AND id = #{id,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="idBegin != null and idBegin != ''">
+                <![CDATA[
+          AND id >= #{idBegin,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="idEnd != null and idEnd != ''">
+                <![CDATA[
+          AND id <= #{idEnd,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="userDescribe != null and userDescribe != ''">
+                <bind name="userDescribe" value="'%' + _parameter.userDescribe + '%'" />
+                <![CDATA[
+          AND userDescribe LIKE #{userDescribe,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="email != null and email != ''">
+                <bind name="email" value="'%' + _parameter.email + '%'" />
+                <![CDATA[
+          AND email LIKE #{email,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="loginTotal != null and loginTotal != ''">
+                <![CDATA[
+          AND loginTotal = #{loginTotal,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="loginTotalBegin != null and loginTotalBegin != ''">
+                <![CDATA[
+          AND loginTotal >= #{loginTotalBegin,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="loginTotalEnd != null and loginTotalEnd != ''">
+                <![CDATA[
+          AND loginTotal <= #{loginTotalEnd,jdbcType=BIGINT}
+        ]]>
+            </if>
+            <if test="nickName != null and nickName != ''">
+                <bind name="nickName" value="'%' + _parameter.nickName + '%'" />
+                <![CDATA[
+          AND nickName LIKE #{nickName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="roleId != null and roleId != ''">
+                <![CDATA[
+          AND roleId = #{roleId,jdbcType=CHAR}
+        ]]>
+            </if>
+            <if test="updateTime != null ">
+                <![CDATA[
+          AND updateTime = #{updateTime,jdbcType=DATE}
+        ]]>
+            </if>
+            <if test="updateTimeBegin != null ">
+                <![CDATA[
+          AND updateTime >= #{updateTimeBegin,jdbcType=DATE}
+        ]]>
+            </if>
+            <if test="updateTimeEnd != null ">
+                <![CDATA[
+          AND updateTime <= #{updateTimeEnd,jdbcType=DATE}
+        ]]>
+            </if>
+            <if test="userName != null and userName != ''">
+                <bind name="userName" value="'%' + _parameter.userName + '%'" />
+                <![CDATA[
+          AND userName LIKE #{userName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="closeUserTime != null ">
+                <![CDATA[
+          AND closeUserTime = #{closeUserTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="closeUserTimeBegin != null ">
+                <![CDATA[
+          AND closeUserTime >= #{closeUserTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="closeUserTimeEnd != null ">
+                <![CDATA[
+          AND closeUserTime <= #{closeUserTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="userId != null and userId != ''">
+                <![CDATA[
+          AND userId = #{userId,jdbcType=CHAR}
+        ]]>
+            </if>
+            <if test="lastLoginTime != null ">
+                <![CDATA[
+          AND lastLoginTime = #{lastLoginTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="lastLoginTimeBegin != null ">
+                <![CDATA[
+          AND lastLoginTime >= #{lastLoginTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="lastLoginTimeEnd != null ">
+                <![CDATA[
+          AND lastLoginTime <= #{lastLoginTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="mobilePhone != null and mobilePhone != ''">
+                <bind name="mobilePhone" value="'%' + _parameter.mobilePhone + '%'" />
+                <![CDATA[
+          AND mobilePhone LIKE #{mobilePhone,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="userPortrait != null and userPortrait != ''">
+                <bind name="userPortrait" value="'%' + _parameter.userPortrait + '%'" />
+                <![CDATA[
+          AND userPortrait LIKE #{userPortrait,jdbcType=VARCHAR}
+        ]]>
+            </if>
+            <if test="createTime != null ">
+                <![CDATA[
+          AND createTime = #{createTime,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="createTimeBegin != null ">
+                <![CDATA[
+          AND createTime >= #{createTimeBegin,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="createTimeEnd != null ">
+                <![CDATA[
+          AND createTime <= #{createTimeEnd,jdbcType=TIMESTAMP}
+        ]]>
+            </if>
+            <if test="closeUserName != null and closeUserName != ''">
+                <bind name="closeUserName" value="'%' + _parameter.closeUserName + '%'" />
+                <![CDATA[
+          AND closeUserName LIKE #{closeUserName,jdbcType=VARCHAR}
+        ]]>
+            </if>
+        </where>
+        <if test="orderByParam != null and orderByParam != ''">
+            <![CDATA[
+      ORDER BY ${orderByParam}
+      ]]>
+            <if test="orderByAccording != null and orderByAccording != ''">
+                <![CDATA[
+          ${orderByAccording}
+        ]]>
+            </if>
+        </if>
+        <if test="pageSize>0">
+            <bind name="pageNo" value="(_parameter.pageNo-1)*_parameter.pageSize" />
+            <![CDATA[
+        LIMIT 1
+      ]]>
+        </if>
+    </delete>
+    <delete id="deleteAll" parameterType="com.lk.entity.database.UserInfoBean">
+        <foreach collection="list" item="item" index="index" separator=";">
+            <![CDATA[
+      delete from t_user_info
+      ]]>
+            <where>
+                <if test="item.authIp != null and item.authIp != ''">
+                    <bind name="item.authIp" value="'%' + item.authIp + '%'" />
+                    <![CDATA[
+          AND authIp LIKE #{item.authIp,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.operationStatus != null and item.operationStatus != ''">
+                    <![CDATA[
+          AND operationStatus = #{item.operationStatus,jdbcType=INTEGER}
+          ]]>
+                </if>
+                <if test="item.operationStatusBegin != null and item.operationStatusBegin != ''">
+                    <![CDATA[
+          AND operationStatus >= #{item.operationStatusBegin,jdbcType=INTEGER}
+          ]]>
+                </if>
+                <if test="item.operationStatusEnd != null and item.operationStatusEnd != ''">
+                    <![CDATA[
+          AND operationStatus <= #{item.operationStatusEnd,jdbcType=INTEGER}
+          ]]>
+                </if>
+                <if test="item.userStatus != null and item.userStatus != ''">
+                    <![CDATA[
+          AND userStatus = #{item.userStatus,jdbcType=INTEGER}
+          ]]>
+                </if>
+                <if test="item.userStatusBegin != null and item.userStatusBegin != ''">
+                    <![CDATA[
+          AND userStatus >= #{item.userStatusBegin,jdbcType=INTEGER}
+          ]]>
+                </if>
+                <if test="item.userStatusEnd != null and item.userStatusEnd != ''">
+                    <![CDATA[
+          AND userStatus <= #{item.userStatusEnd,jdbcType=INTEGER}
+          ]]>
+                </if>
+                <if test="item.createUserName != null and item.createUserName != ''">
+                    <bind name="item.createUserName" value="'%' + item.createUserName + '%'" />
+                    <![CDATA[
+          AND createUserName LIKE #{item.createUserName,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.remark != null and item.remark != ''">
+                    <bind name="item.remark" value="'%' + item.remark + '%'" />
+                    <![CDATA[
+          AND remark LIKE #{item.remark,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.openUserName != null and item.openUserName != ''">
+                    <bind name="item.openUserName" value="'%' + item.openUserName + '%'" />
+                    <![CDATA[
+          AND openUserName LIKE #{item.openUserName,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.openUserTime != null ">
+                    <![CDATA[
+          AND openUserTime = #{item.openUserTime,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.openUserTimeBegin != null ">
+                    <![CDATA[
+          AND openUserTime >= #{item.openUserTimeBegin,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.openUserTimeEnd != null ">
+                    <![CDATA[
+          AND openUserTime <= #{item.openUserTimeEnd,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.telePhone != null and item.telePhone != ''">
+                    <bind name="item.telePhone" value="'%' + item.telePhone + '%'" />
+                    <![CDATA[
+          AND telePhone LIKE #{item.telePhone,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.lastLoginIp != null and item.lastLoginIp != ''">
+                    <bind name="item.lastLoginIp" value="'%' + item.lastLoginIp + '%'" />
+                    <![CDATA[
+          AND lastLoginIp LIKE #{item.lastLoginIp,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.password != null and item.password != ''">
+                    <![CDATA[
+          AND password = #{item.password,jdbcType=CHAR}
+          ]]>
+                </if>
+                <if test="item.loginTime != null ">
+                    <![CDATA[
+          AND loginTime = #{item.loginTime,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.loginTimeBegin != null ">
+                    <![CDATA[
+          AND loginTime >= #{item.loginTimeBegin,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.loginTimeEnd != null ">
+                    <![CDATA[
+          AND loginTime <= #{item.loginTimeEnd,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.merchantId != null and item.merchantId != ''">
+                    <![CDATA[
+          AND merchantId = #{item.merchantId,jdbcType=CHAR}
+          ]]>
+                </if>
+                <if test="item.loginName != null and item.loginName != ''">
+                    <bind name="item.loginName" value="'%' + item.loginName + '%'" />
+                    <![CDATA[
+          AND loginName LIKE #{item.loginName,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.loginIp != null and item.loginIp != ''">
+                    <bind name="item.loginIp" value="'%' + item.loginIp + '%'" />
+                    <![CDATA[
+          AND loginIp LIKE #{item.loginIp,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.id != null and item.id != ''">
+                    <![CDATA[
+          AND id = #{item.id,jdbcType=BIGINT}
+          ]]>
+                </if>
+                <if test="item.idBegin != null and item.idBegin != ''">
+                    <![CDATA[
+          AND id >= #{item.idBegin,jdbcType=BIGINT}
+          ]]>
+                </if>
+                <if test="item.idEnd != null and item.idEnd != ''">
+                    <![CDATA[
+          AND id <= #{item.idEnd,jdbcType=BIGINT}
+          ]]>
+                </if>
+                <if test="item.userDescribe != null and item.userDescribe != ''">
+                    <bind name="item.userDescribe" value="'%' + item.userDescribe + '%'" />
+                    <![CDATA[
+          AND userDescribe LIKE #{item.userDescribe,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.email != null and item.email != ''">
+                    <bind name="item.email" value="'%' + item.email + '%'" />
+                    <![CDATA[
+          AND email LIKE #{item.email,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.loginTotal != null and item.loginTotal != ''">
+                    <![CDATA[
+          AND loginTotal = #{item.loginTotal,jdbcType=BIGINT}
+          ]]>
+                </if>
+                <if test="item.loginTotalBegin != null and item.loginTotalBegin != ''">
+                    <![CDATA[
+          AND loginTotal >= #{item.loginTotalBegin,jdbcType=BIGINT}
+          ]]>
+                </if>
+                <if test="item.loginTotalEnd != null and item.loginTotalEnd != ''">
+                    <![CDATA[
+          AND loginTotal <= #{item.loginTotalEnd,jdbcType=BIGINT}
+          ]]>
+                </if>
+                <if test="item.nickName != null and item.nickName != ''">
+                    <bind name="item.nickName" value="'%' + item.nickName + '%'" />
+                    <![CDATA[
+          AND nickName LIKE #{item.nickName,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.roleId != null and item.roleId != ''">
+                    <![CDATA[
+          AND roleId = #{item.roleId,jdbcType=CHAR}
+          ]]>
+                </if>
+                <if test="item.updateTime != null ">
+                    <![CDATA[
+          AND updateTime = #{item.updateTime,jdbcType=DATE}
+          ]]>
+                </if>
+                <if test="item.updateTimeBegin != null ">
+                    <![CDATA[
+          AND updateTime >= #{item.updateTimeBegin,jdbcType=DATE}
+          ]]>
+                </if>
+                <if test="item.updateTimeEnd != null ">
+                    <![CDATA[
+          AND updateTime <= #{item.updateTimeEnd,jdbcType=DATE}
+          ]]>
+                </if>
+                <if test="item.userName != null and item.userName != ''">
+                    <bind name="item.userName" value="'%' + item.userName + '%'" />
+                    <![CDATA[
+          AND userName LIKE #{item.userName,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.closeUserTime != null ">
+                    <![CDATA[
+          AND closeUserTime = #{item.closeUserTime,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.closeUserTimeBegin != null ">
+                    <![CDATA[
+          AND closeUserTime >= #{item.closeUserTimeBegin,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.closeUserTimeEnd != null ">
+                    <![CDATA[
+          AND closeUserTime <= #{item.closeUserTimeEnd,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.userId != null and item.userId != ''">
+                    <![CDATA[
+          AND userId = #{item.userId,jdbcType=CHAR}
+          ]]>
+                </if>
+                <if test="item.lastLoginTime != null ">
+                    <![CDATA[
+          AND lastLoginTime = #{item.lastLoginTime,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.lastLoginTimeBegin != null ">
+                    <![CDATA[
+          AND lastLoginTime >= #{item.lastLoginTimeBegin,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.lastLoginTimeEnd != null ">
+                    <![CDATA[
+          AND lastLoginTime <= #{item.lastLoginTimeEnd,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.mobilePhone != null and item.mobilePhone != ''">
+                    <bind name="item.mobilePhone" value="'%' + item.mobilePhone + '%'" />
+                    <![CDATA[
+          AND mobilePhone LIKE #{item.mobilePhone,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.userPortrait != null and item.userPortrait != ''">
+                    <bind name="item.userPortrait" value="'%' + item.userPortrait + '%'" />
+                    <![CDATA[
+          AND userPortrait LIKE #{item.userPortrait,jdbcType=VARCHAR}
+          ]]>
+                </if>
+                <if test="item.createTime != null ">
+                    <![CDATA[
+          AND createTime = #{item.createTime,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.createTimeBegin != null ">
+                    <![CDATA[
+          AND createTime >= #{item.createTimeBegin,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.createTimeEnd != null ">
+                    <![CDATA[
+          AND createTime <= #{item.createTimeEnd,jdbcType=TIMESTAMP}
+          ]]>
+                </if>
+                <if test="item.closeUserName != null and item.closeUserName != ''">
+                    <bind name="item.closeUserName" value="'%' + item.closeUserName + '%'" />
+                    <![CDATA[
+          AND closeUserName LIKE #{item.closeUserName,jdbcType=VARCHAR}
+          ]]>
+                </if>
+            </where>
+            <if test="item.orderByParam != null and item.orderByParam != ''">
+                <![CDATA[
+        ORDER BY ${item.orderByParam}
+        ]]>
+                <if test="item.orderByAccording != null and item.orderByAccording != ''">
+                    <![CDATA[
+          ${item.orderByAccording}
+          ]]>
+                </if>
+            </if>
+            <if test="item.pageSize>0">
+                <bind name="pageNo" value="(_parameter.pageNo-1)*_parameter.pageSize" />
+                <![CDATA[
+        LIMIT #{item.pageSize,jdbcType=INTEGER}
+        ]]>
+            </if>
+        </foreach>
+    </delete>
+</mapper>
